@@ -28,6 +28,8 @@ public class Monster : MonoBehaviour {
 
     Action CurrentBehavior;
 
+    
+
 	// Use this for initialization
 	void Start () {
 
@@ -35,45 +37,73 @@ public class Monster : MonoBehaviour {
 
         _navMeshAgent = GetComponent<NavMeshAgent>();
         CurrentBehavior = IdleBehavior;
+
+        Player.Instance.GetComponent<Death>().PlayerDeathEvent += Monster_PlayerDeathEvent;
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void Monster_PlayerDeathEvent()
+    {
+        CurrentBehavior = DevourBehavior;
+
+    }
+
+    // Update is called once per frame
+    void Update () {
         CurrentBehavior();
 
 	}
 
+    public event Action DevourEvent;
+    bool _devouring;
+    void DevourBehavior()
+    {
+        if(playerInRange)
+        {
+            if(!_devouring)
+            {
+                DevourEvent();
+                _devouring = true;
+            }
+        }else
+        {
+            bool startMovingThisFrame = _navMeshAgent.isStopped && canMove;
+            _navMeshAgent.isStopped = !canMove;
+            if (startMovingThisFrame)
+            {
+                MoveEvent();
+            }
+            _navMeshAgent.SetDestination(player.position);
+        }
+    }
+
+
+    public LayerMask layersToIgnore;
 
     void IdleBehavior()
     {
         RaycastHit hit;
-        if (!_aggro && Physics.Raycast(_myTransform.position, player.position - _myTransform.position, out hit, aggroDistance))
+        if (!_aggro && Physics.Raycast(_myTransform.position, player.position - _myTransform.position, out hit, aggroDistance,layersToIgnore))
         {
             if (hit.collider.CompareTag("Player"))
             {
-
-                Debug.Log("aggro");
                 Aggro();
             }
         }
     }
+
     [HideInInspector]
     public bool canMove = true;
     void AggroBehavior()
     {
 		bool startMovingThisFrame = _navMeshAgent.isStopped&&canMove;
 		_navMeshAgent.isStopped = !canMove;
-
-
+        
         if(!_attacking &&playerInRange)
         {
-
-            Debug.Log("attack event");
             _attacking = true;
             AttackEvent();
         }
-
-
+        
 		if(!_attacking)
 		{
 			if(startMovingThisFrame)
@@ -81,9 +111,7 @@ public class Monster : MonoBehaviour {
 				MoveEvent();
 			}
 			_navMeshAgent.SetDestination(player.position);
-
 		}
-
     }
 
     public event Action AttackEvent;
@@ -98,15 +126,13 @@ public class Monster : MonoBehaviour {
 
     public void AttackAnimationEnded()
     {
-
-        Debug.Log("attack animation ended");
         _attacking = false;
     }
 
     bool _attacking = false;
     public bool attacking
-    { get
-
+    {
+        get
         {
             return _attacking;
         }
@@ -158,8 +184,9 @@ public class Monster : MonoBehaviour {
 		MySoundManager.AggroMusic();
     }
 
-//	void OnGUI()
-//	{
-//		GUILayout.Label("can move: "+this.canMove);
-//	}
+    //void OnGUI()
+    //{
+    //    GUILayout.Label("can move: " + this.canMove);
+    //    GUILayout.Label("player in range: " + playerInRange);
+    //}
 }

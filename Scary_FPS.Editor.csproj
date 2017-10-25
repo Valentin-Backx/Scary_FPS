@@ -183,8 +183,16 @@
     <Compile Include="Assets\Editor\ImageEffects\SunShaftsEditor.cs" />
     <Compile Include="Assets\Editor\ImageEffects\TonemappingEditor.cs" />
     <Compile Include="Assets\Editor\ImageEffects\VignetteAndChromaticAberrationEditor.cs" />
+    <Compile Include="Assets\FGC\Volund-Morph3D\Shared\Editor\VolundMultiStandardShaderGUI.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\FGC\Readme.txt" />
+    <None Include="Assets\FGC\Volund-Morph3D\Shared\UnityPBSLighting.cginc" />
+    <None Include="Assets\FGC\Volund-Morph3D\Shared\UnityStandardSurface.cginc" />
+    <None Include="Assets\FGC\Volund-Morph3D\Shared\Volund_StandardCharacterSpecularSurface.shader" />
+    <None Include="Assets\FGC\Volund-Morph3D\UniqueShadow\UniqueShadow_DepthOnly.shader" />
+    <None Include="Assets\FGC\Volund-Morph3D\UniqueShadow\UniqueShadow_ShadowSample.cginc" />
+    <None Include="Assets\Raw Mocap Data\Animations\_CompleteAnimationList.txt" />
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />

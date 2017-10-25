@@ -25,6 +25,35 @@ public class THC1_Anim : MonoBehaviour {
 		_monster.MoveEvent += OnMove;
 
         _anim.SetInteger("moving", 2);
+        _anim.SetInteger("battle", 0);
+
+        _monster.DevourEvent += _monster_DevourEvent;
+        
+    }
+
+    private void _monster_DevourEvent()
+    {
+        _monster.canMove = false;
+
+
+        float preWait = _anim.GetCurrentAnimatorStateInfo(0).length;
+
+        StartCoroutine(CrouchingRoutine(preWait));
+
+    }
+
+    IEnumerator CrouchingRoutine(float preWait)
+    {
+        yield return new WaitForSeconds(preWait);
+        _anim.SetInteger("moving", 0);
+        _anim.SetInteger("battle", 2);
+        
+        float duration = _anim.GetCurrentAnimatorStateInfo(0).length;
+
+        yield return new WaitForSeconds(duration);
+        _anim.SetInteger("moving", 17);
+
+
     }
 
     private void _monster_AttackEvent()
@@ -42,7 +71,6 @@ public class THC1_Anim : MonoBehaviour {
 
 	void OnMove()
 	{
-
 		_anim.SetInteger("moving", 2);
 	}
 
@@ -57,12 +85,16 @@ public class THC1_Anim : MonoBehaviour {
         _anim.SetInteger("moving", val);
 
         float timer = 0f;
-        while(timer < duration)
+
+        bool hit = false;
+
+        while (timer < duration)
         {
             yield return null;
             timer += Time.deltaTime;
-            if(timer>=attackFrameHit)
+            if(timer>=attackFrameHit&&!hit)
             {
+                hit=true;
                 _monster.AnimationHit();
             }
         }
@@ -75,12 +107,15 @@ public class THC1_Anim : MonoBehaviour {
     private void _monster_AggroEvent()
     {
         _monster.canMove = false;
-        
-        float duration= _anim.GetCurrentAnimatorStateInfo(0).length;
+
+        _anim.SetInteger("moving", 8);
+        _anim.SetInteger("battle", 1);
+
+        float duration= Mathf.Max( _anim.GetCurrentAnimatorStateInfo(0).length, _anim.GetCurrentAnimatorStateInfo(1).length);
+
         StartCoroutine(ToRunRoutine(duration));
 
-		_anim.SetInteger("moving", 8);
-		_anim.SetInteger("battle", 1);
+
 
     }
 

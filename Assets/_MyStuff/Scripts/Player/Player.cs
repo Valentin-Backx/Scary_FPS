@@ -14,6 +14,9 @@ public class Player : MonoBehaviour {
         return _Instance;
       }
     }
+
+    public event Action<float,Vector3> DamageEvent;
+
     void Awake()
 {
     if (_Instance != null && _Instance != this)
@@ -24,13 +27,33 @@ public class Player : MonoBehaviour {
     _Instance = this;
     }
 
+    private void Start()
+    {
+        _currentLife = maxLife;
+    }
 
     [SerializeField]
     float maxLife=100f;
+
+    public float MaxLife
+    {
+        get
+        {
+            return maxLife;
+        }
+    }
     
     float _currentLife;
+    public float currentLife
+    {
+        get
+        {
+            return _currentLife;
+        }
+    }
     internal void Damage(float damage)
     {
         this._currentLife -= damage;
+        DamageEvent(damage,this.transform.position);
     }
 }
