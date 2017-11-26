@@ -24,11 +24,18 @@ public class THC1_Anim : MonoBehaviour {
         _monster.AttackEvent += _monster_AttackEvent;
 		_monster.MoveEvent += OnMove;
 
-        _anim.SetInteger("moving", 2);
-        _anim.SetInteger("battle", 0);
+        ToIdle();
 
         _monster.DevourEvent += _monster_DevourEvent;
-        
+
+        _monster.ToIdleEvent += ToIdle;
+    }
+
+    public void ToIdle()
+    {
+
+        _anim.SetInteger("moving", 0);
+        _anim.SetInteger("battle", 0);
     }
 
     private void _monster_DevourEvent()
@@ -147,11 +154,12 @@ public class THC1_Anim : MonoBehaviour {
             return _roaring;
         }
     }
+    
+    //private void OnGUI()
+    //{
 
-    // Update is called once per frame
- //   void Update () {
- //       if()
-	//}
-
+    //    GUILayout.Label("moving: " + _anim.GetInteger("moving"));
+    //    GUILayout.Label("battle: " + _anim.GetInteger("battle"));
+    //}
 
 }

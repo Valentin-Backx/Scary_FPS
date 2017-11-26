@@ -13,6 +13,7 @@ public class Interactor : MonoBehaviour {
         return _Instance;
       }
     }
+
     void Awake()    
     {
         if (_Instance != null && _Instance != this)

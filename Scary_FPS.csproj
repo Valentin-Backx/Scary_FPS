@@ -109,6 +109,9 @@
     <Compile Include="Assets\True_Horror_Creatures\Horror_creature1.1\scripts\THC1_ctrl.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\DarkAppearance.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\Environment\Interactibles\Door.cs" />
+    <Compile Include="Assets\_MyStuff\Scripts\GameManagement\Ending.cs" />
+    <Compile Include="Assets\_MyStuff\Scripts\GameManagement\GameManager.cs" />
+    <Compile Include="Assets\_MyStuff\Scripts\GameManagement\LevelManager.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\LightBlink.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\Monster\Monster.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\Monster\THC1_Anim.cs" />
@@ -116,6 +119,7 @@
     <Compile Include="Assets\_MyStuff\Scripts\PlayHitOnce.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\Player\DamageSound.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\Player\Death.cs" />
+    <Compile Include="Assets\_MyStuff\Scripts\Player\FearManager.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\Player\IInteractable.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\Player\InteractableDetector.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\Player\Interactor.cs" />
@@ -125,6 +129,8 @@
     <Compile Include="Assets\_MyStuff\Scripts\Player\UIDoorOverlay.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\SpookTrigger.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\UI\BloodOverlay.cs" />
+    <Compile Include="Assets\_MyStuff\Scripts\UI\FearUI.cs" />
+    <Compile Include="Assets\_MyStuff\Scripts\UI\GUIManager.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\UI\InteractableDoorUI.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\UI\InteractableUI.cs" />
     <Compile Include="Assets\_MyStuff\Scripts\WaitAndDestroy.cs" />

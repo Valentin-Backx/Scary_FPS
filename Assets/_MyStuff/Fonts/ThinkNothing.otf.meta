@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 4487746a7a5021f44b466d162dbd95a5
+timeCreated: 1509810893
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Think Nothing
+  fontNames:
+  - Think Nothing
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -9,14 +9,16 @@ public class BloodOverlay : MonoBehaviour {
 
     public float maxCutoff = 1f;
     public float minCutoff = 0.558f;
-
-    public Player player;
-
+    
     public Image bloodOverlay;
 
-    private void Start()
+    IEnumerator Start()
     {
-        player.DamageEvent += Player_DamageEvent;
+        while(Player.Instance==null)
+        {
+            yield return null;
+        }
+        Player.Instance.DamageEvent += Player_DamageEvent;
         bloodOverlay.enabled = false;
     }
 
@@ -24,9 +26,8 @@ public class BloodOverlay : MonoBehaviour {
     {
         bloodOverlay.enabled = true;
 
-        float calculatedCutoff = Mathf.Lerp(minCutoff, maxCutoff, player.currentLife / player.MaxLife);
+        float calculatedCutoff = Mathf.Lerp(minCutoff, maxCutoff, Player.Instance.currentLife / Player.Instance.MaxLife);
         bloodOverlayMat.SetFloat("_Cutoff", calculatedCutoff);
-
     }
 
     private void OnApplicationQuit()

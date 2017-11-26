@@ -5,10 +5,7 @@ using UnityEngine;
 public class InteractableDetector : MonoBehaviour {
 
     public LayerMask interactablesMask;
-
-    Transform _cameraTransform;
-
-
+    
     static InteractableDetector _Instance;
     public static InteractableDetector Instance
     {
@@ -36,27 +33,21 @@ public class InteractableDetector : MonoBehaviour {
     }
 
     Collider _currentlyDetected;
-
-	// Use this for initialization
-	void Start () {
-        _cameraTransform = Camera.main.transform;
-	}
+    
 
     private void Update()
     {
+        if(Camera.main==null)
+        {
+            return;
+        }
         RaycastHit hit;
-        if(Physics.Raycast(_cameraTransform.position,_cameraTransform.forward,out hit,Mathf.Infinity,interactablesMask))
+        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,out hit,Mathf.Infinity,interactablesMask))
         {
             _currentlyDetected = hit.collider;
         }else
-
         {
             _currentlyDetected = null;
         }
     }
-
-
-
-
-
 }

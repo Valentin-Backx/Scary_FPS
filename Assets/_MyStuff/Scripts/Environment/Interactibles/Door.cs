@@ -61,11 +61,13 @@ public class Door : MonoBehaviour,IInteractable {
 
     public void Activate(bool t)
     {
-        JointSpring spring = new JointSpring();
-        spring.spring = joint.spring.spring;
-        spring.damper = joint.spring.damper;
-        spring.targetPosition = doorClosedTarget;
+        //JointSpring spring = new JointSpring();
+        //spring.spring = joint.spring.spring;
+        //spring.damper = joint.spring.damper;
+        //spring.targetPosition = doorClosedTarget;
 
-        joint.spring=spring;
+        //joint.spring=spring;
+        joint.useMotor = true;
+
     }
 }

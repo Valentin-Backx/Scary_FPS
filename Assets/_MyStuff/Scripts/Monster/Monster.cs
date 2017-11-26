@@ -28,7 +28,10 @@ public class Monster : MonoBehaviour {
 
     Action CurrentBehavior;
 
-    
+
+    [SerializeField] float _fearSpeedModifier=2f;
+
+    float _baseAgentSpeed;
 
 	// Use this for initialization
 	void Start () {
@@ -39,6 +42,8 @@ public class Monster : MonoBehaviour {
         CurrentBehavior = IdleBehavior;
 
         Player.Instance.GetComponent<Death>().PlayerDeathEvent += Monster_PlayerDeathEvent;
+
+        _baseAgentSpeed = _navMeshAgent.speed;
 	}
 
     private void Monster_PlayerDeathEvent()
@@ -49,6 +54,9 @@ public class Monster : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
+        _navMeshAgent.speed = Mathf.Lerp(_baseAgentSpeed, _baseAgentSpeed * _fearSpeedModifier, FearManager.Instance.currentFear); 
+
         CurrentBehavior();
 
 	}
@@ -110,8 +118,28 @@ public class Monster : MonoBehaviour {
 			{
 				MoveEvent();
 			}
-			_navMeshAgent.SetDestination(player.position);
+            NavMeshPath path = new NavMeshPath();
+            _navMeshAgent.CalculatePath(player.position, path);
+
+
+            if (path.status==NavMeshPathStatus.PathPartial)
+            {
+                BackToIdle();
+                return;
+            }
+
+                _navMeshAgent.path = path;
+            
 		}
+    }
+
+    public event Action ToIdleEvent;
+
+    private void BackToIdle()
+    {
+        _aggro = false;
+        ToIdleEvent();
+        CurrentBehavior = IdleBehavior;
     }
 
     public event Action AttackEvent;
@@ -186,7 +214,12 @@ public class Monster : MonoBehaviour {
 
     //void OnGUI()
     //{
-    //    GUILayout.Label("can move: " + this.canMove);
-    //    GUILayout.Label("player in range: " + playerInRange);
+        //GUILayout.Label("can move: " + this.canMove);
+        //GUILayout.Label("player in range: " + playerInRange);
+
+    //    GUILayout.Label("has path: "+_navMeshAgent.hasPath);
+
+    //    GUILayout.Label("path status: "+_navMeshAgent.pathStatus);
+        
     //}
 }

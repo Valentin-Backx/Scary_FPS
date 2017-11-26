@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class Player : MonoBehaviour {
 
@@ -55,5 +56,13 @@ public class Player : MonoBehaviour {
     {
         this._currentLife -= damage;
         DamageEvent(damage,this.transform.position);
+    }
+
+    public void FreezeMovement()
+    {
+        RigidbodyFirstPersonController controller = this.GetComponent<RigidbodyFirstPersonController>();
+        controller.movementSettings.ForwardSpeed = 0f;
+        controller.movementSettings.BackwardSpeed = 0f;
+        controller.movementSettings.StrafeSpeed = 0f;
     }
 }
